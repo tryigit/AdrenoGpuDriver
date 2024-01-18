@@ -18,6 +18,7 @@ https://tryigit.dev/vip-drivers/
 Please support the project*
 
 ### Opengl Driver
+```
 /lib*/egl/eglSubDriverAndroid.so
 /lib*/egl/libEGL_adreno.so
 /lib*/egl/libGLESv1_CM_adreno.so
@@ -25,21 +26,28 @@ Please support the project*
 /lib*/egl/libq3dtools_adreno.so
 /lib*/egl/libq3dtools_esx.so
 /lib*/some additional files (according to gpu)
+```
 
 ### Vulkan Driver
-```/lib*/hw/vulkan.adreno.so
-/lib*/hw/some additional files (according to gpu)```
+```
+/lib*/hw/vulkan.adreno.so
+/lib*/hw/some additional files (according to gpu)
+```
 
 ### Opencl Drived
-```/lib*/libCB.so
-/lib*/some additional files (according to gpu)```
+```
+/lib*/libCB.so
+/lib*/some additional files (according to gpu)
+```
 
 ### Required files
-```/lib*/libadreno_utils.so
+```
+/lib*/libadreno_utils.so
 /lib*/libgpudataproducer.so
 /lib*/libllvm-glnext.so
 /lib*/libllvm-qcom.so
 /lib*/libllvm-qgl.so
 /lib*/libgsl.so
 /lib*/firmware/a*_sqe.fw (according to gpu)
-/lib*/some additional files (according to gpu)```
+/lib*/some additional files (according to gpu)
+```
