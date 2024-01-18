@@ -1,0 +1,6 @@
+Firmware files can be used to add necessary software for specific GPU drivers.
+For example, you must add a compatible FW for the A650 Adreno GPU.
+
+a650_sqe.fw
+
+Please remove this file from your module after reading readme and delete
