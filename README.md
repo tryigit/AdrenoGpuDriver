@@ -4,8 +4,8 @@ Currently magisk focused. kernelsu and other root projects may be added in the f
 You can make your own modules using magisk template.
 
 ### Two solutions for bootloop and similar problems:
-+ Recovery: Safe Mode
-+ Twrp: /data/adb/modules`
++ `Recovery: Safe Mode`
++ `Twrp: /data/adb/modules delete`
 
 
 ## Community Created Drivers
