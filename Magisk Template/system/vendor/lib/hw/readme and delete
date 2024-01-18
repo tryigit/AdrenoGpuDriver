@@ -1,0 +1,4 @@
+Usually vulkan driver and some hw files.
+for example vulkan.adreno.so
+
+Please remove this file from your module after reading readme and delete
