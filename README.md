@@ -41,7 +41,7 @@ https://tryigit.dev/vip-drivers/
 /lib*/some additional files (according to gpu)
 ```
 
-### Required files
+### Required Files
 ```
 /lib*/libadreno_utils.so
 /lib*/libgpudataproducer.so
@@ -52,3 +52,10 @@ https://tryigit.dev/vip-drivers/
 /lib*/firmware/a*_sqe.fw (according to gpu)
 /lib*/some additional files (according to gpu)
 ```
+
+## Android Native Feature
+> [!TIP]
+> Did you know that if you have a computer, you can change the drivers for games and apps separately from the android system?
+
+https://gpuinspector.dev/
+https://github.com/google/agi
