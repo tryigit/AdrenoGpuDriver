@@ -61,7 +61,10 @@ https://gpuinspector.dev/
 https://github.com/google/agi
 
 ## Qualcomm Driver Update App
-There are few people skilled enough to do this, but you can change the system gpu driver implementation by editing some prop codes! So, GPU driver updates may be applied in the future.
+> [!WARNING]
+> This feature is not supported by older devices.
+
+There are very few people skilled enough to do this, but you can modify the system gpu driver implementation by editing some prop code! So in the future, it is possible to make a Qualcomm independent gpu driver implementation.
 ```
 ro.gfx.driver.0=com.xiaomi.ugd
 ro.gfx.driver.1=com.qualcomm.qti.gpudrivers.kalama.api33
