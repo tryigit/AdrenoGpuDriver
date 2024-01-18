@@ -60,6 +60,12 @@ https://tryigit.dev/vip-drivers/
 https://gpuinspector.dev/
 https://github.com/google/agi
 
+## Qualcomm Driver Update App
+There are few people skilled enough to do this, but you can change the system gpu driver implementation by editing some prop codes! So, GPU driver updates may be applied in the future.
+```
+ro.gfx.driver.0=com.xiaomi.ugd
+ro.gfx.driver.1=com.qualcomm.qti.gpudrivers.kalama.api33
+```
 ## Known Issues
 - [x] Kernelsu compatibility
 - [ ] Magiskhide map conflict
