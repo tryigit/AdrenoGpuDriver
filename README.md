@@ -25,7 +25,7 @@ Please support the project*
 /lib*/egl/libGLESv2_adreno.so
 /lib*/egl/libq3dtools_adreno.so
 /lib*/egl/libq3dtools_esx.so
-/lib*/some additional files (according to gpu)
+/lib*/egl/some additional files (according to gpu)
 ```
 
 ### Vulkan Driver
@@ -34,7 +34,7 @@ Please support the project*
 /lib*/hw/some additional files (according to gpu)
 ```
 
-### Opencl Drived
+### Opencl Driver
 ```
 /lib*/libCB.so
 /lib*/some additional files (according to gpu)
