@@ -15,7 +15,6 @@ To support community drivers, send your own driver modules on this telegram grou
 
 
 ## Driver Files
-[!NOTE]
 Please support the project*
 
 ### Opengl Driver
