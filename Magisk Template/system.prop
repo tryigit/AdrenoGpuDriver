@@ -1,0 +1,2 @@
+# Fix Magiskhide map conflict. It causes some additional problems. If you find a different solution, send Pull Req.
+ro.zygote.disable_gl_preload=1
