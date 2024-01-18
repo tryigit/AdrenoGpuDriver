@@ -64,4 +64,3 @@ https://github.com/google/agi
 - [x] Kernelsu compatibility
 - [ ] Magiskhide map conflict
 > Temporarily added this prop code `ro.zygote.disable_gl_preload=1` this fixes the magiskhide egl issue but causes other problems* @topjohnwu
-- [ ] :tada:
