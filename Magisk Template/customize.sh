@@ -3,12 +3,11 @@ SOC=`getprop ro.soc.model`
 MODVER=`grep_prop version $MODPATH/module.prop`
 MODVERCODE=`grep_prop versionCode $MODPATH/module.prop`
 ui_print " "
-ui_print " Version=$MODVER"
+ui_print " Version=$MODVER STABLE"
 ui_print " MagiskVersion=$MAGISK_VER"
 ui_print " "
 ui_print " Help and Donate: t.me/chinacloudgroup"
-ui_print " Website: tryigit.dev/snapdragon"
-ui_print " "
+ui_print " Website: tryigit.dev/snap"
 ui_print " "
 ui_print " - Rom Check..."
 DALVL=`getprop ro.build.host`
@@ -25,7 +24,7 @@ then
 echo " - Success Variant 2 🌍"
 else
 echo " "
-echo "! Bad rom"
+echo "! bad rom (no support)"
 echo " "
 fi
 echo " "
@@ -34,8 +33,20 @@ ui_print " - Android Version Check..."
 echo " - Success 🌍"
 echo " "
 
+ui_print " - Load wait..."
 sleep 1
-# Folder/file permissions
+
+# If soc is SM8050 or SM8250, set permissions on firmware file
+if [[ "$soc" == "SM8250-AC" || "$soc" == "SM8250" || "$soc" == "SM8250-AB" ]]; then
+  chmod 644 /system/vendor/firmware/a650_sqe.fw
+fi
+# If soc is not SM8050 or SM8250, force remove firmware file
+if [[ "$soc" != "SM8250-AC" && "$soc" != "SM8250" && "$soc" != "SM8250-AB" ]]; then
+  rm -f $MODPATH/system/vendor/firmware/a650_sqe.fw
+  rm -f $MODPATH/system/vendor/firmware/
+fi
+
+# add path
 set_perm $MODPATH/system/vendor/lib64/hw/libbacktrace.so 0 0 0644
 set_perm_recursive $MODPATH/system/vendor 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/etc/sphal_libraries.txt 0 0 0755 0644 u:object_r:same_process_hal_file:s0
@@ -90,7 +101,7 @@ ui_print " "
 ui_print " - Final step for GPU Cache Cleaner by tryigitx"
 ui_print " - Please wait..."
 
-# Gpu cache cleaner code
+# chace cleaner
 check_file_exists() {
     if [ -e "$1" ]; then
         echo "Folder $1 still exists ❗"
