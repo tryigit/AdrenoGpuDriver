@@ -76,7 +76,7 @@ ro.gfx.driver.0=com.xiaomi.ugd
 ro.gfx.driver.1=com.qualcomm.qti.gpudrivers.kalama.api33
 ```
 ## Edit Gpu Driver
-You need to learn how to use *Adreno Profile Tools*. You can also use Qualcomm official website to download. In general, this template is for drivers extracted from the rom dump.
+You need to learn how to use **Adreno Profile Tools**. You can also use Qualcomm official website to download. In general, this template is for drivers extracted from the rom dump.
 
 ## Known Issues
 - [x] Kernelsu compatibility
