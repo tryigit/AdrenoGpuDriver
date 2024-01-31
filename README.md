@@ -81,4 +81,5 @@ You need to learn how to use **Adreno Profile Tools**. You can also use Qualcomm
 ## Known Issues
 - [x] Kernelsu compatibility
 - [ ] Magiskhide map conflict
+> [!IMPORTANT]
 > Temporarily added this prop code `ro.zygote.disable_gl_preload=1` this fixes the magiskhide egl issue but causes other problems* @topjohnwu
