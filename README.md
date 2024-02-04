@@ -66,7 +66,7 @@ https://tryigit.dev/vip-drivers/
 + https://gpuinspector.dev/
 + https://github.com/google/agi
 
-## Qualcomm Driver Update App
+## Driver Update App
 > [!WARNING]
 > This feature is not supported by older devices.
 
