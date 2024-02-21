@@ -11,7 +11,7 @@ You can make your own modules using template.
 ## Community Created Drivers
 https://tryigit.dev/snapdragon-drivers
 
-To support community drivers, send your own driver modules on this telegram group.
+To support community drivers, send your own driver modules on this telegram group. I stopped working for the community because I don't like the community.
 
 ### Telegram:
 https://t.me/chinacloudgroup
