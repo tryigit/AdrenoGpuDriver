@@ -14,7 +14,7 @@ https://tryigit.dev/snapdragon-drivers
 To support community drivers, send your own driver modules on this telegram group. I stopped working for the community because I don't like the community.
 
 ### Telegram:
-https://t.me/chinacloudgroup
+https://t.me/cleverestech
 
 ## Drivers Customized By Yigit
 https://tryigit.dev/vip-drivers/
