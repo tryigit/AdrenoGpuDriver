@@ -60,8 +60,7 @@ https://tryigit.dev/vip-drivers/
 ```
 
 ## Android Native Feature
-> [!TIP]
-> Did you know that if you have a computer, you can change the drivers for games and apps separately from the android system?
+Did you know that if you have a computer, you can change the drivers for games and apps separately from the android system?
 
 + https://gpuinspector.dev/
 + https://github.com/google/agi
