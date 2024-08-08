@@ -1,1 +1,6 @@
-
+{
+    "version": "v1.0.1",
+    "versionCode": 101,
+    "zipUrl": "https://tryigit.dev/snapdragon-drivers",
+    "changelog": "https://raw.githubusercontent.com/tryigit/AdrenoGpuDriver/main/free_changelog.md"
+}
