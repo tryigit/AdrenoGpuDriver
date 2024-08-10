@@ -107,7 +107,6 @@ ui_print " - Please wait..."
 gpu_cache_cleaner() {
     find "$1" -type f -name '*shader*' -exec rm -f {} \;
     if [ -e "$1" ]; then
-        echo "Folder $1 still exists ❗"
     else
         echo " - $1 cleared 🧭"
     fi
