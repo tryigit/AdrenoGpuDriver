@@ -1,6 +1,6 @@
 id=gpu_driver
-name=Adreno Gpu Driver Community
-version=v1
-versionCode=1000
+name=Adreno Gpu Driver
+version=v1.0.1
+versionCode=101
 author=tryigitx
-description=Open-Source Snapdragon {Driver Version} / Telegram @chinacloudgroup
+description=🌏 Qualcomm Open-Source Adreno { Version} Driver
