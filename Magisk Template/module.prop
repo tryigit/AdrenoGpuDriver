@@ -1,6 +1,6 @@
-id=gpu_driver
+id=gpu_driver_free
 name=Adreno Gpu Driver
-version=v1.0.1
-versionCode=101
+version=v1.0.2
+versionCode=102
 author=tryigitx
-description=🌏 Qualcomm Open-Source Adreno { Version} Driver
+description=Open-Source Adreno {Version} Driver | Dump By {@urname}
