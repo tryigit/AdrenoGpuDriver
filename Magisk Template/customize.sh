@@ -1,67 +1,65 @@
-# info
-SOC=`getprop ro.soc.model`
-MODVER=`grep_prop version $MODPATH/module.prop`
-MODVERCODE=`grep_prop versionCode $MODPATH/module.prop`
+# Android magisk customize.sh @tryigitx
+
+# Gather Information
+SOC=$(getprop ro.soc.model)
+MODVER=$(grep_prop version $MODPATH/module.prop)
+MODVERCODE=$(grep_prop versionCode $MODPATH/module.prop)
+
+# Display Info
 ui_print " "
-ui_print " Version=$MODVER STABLE"
-ui_print " MagiskVersion=$MAGISK_VER"
-ui_print " "
-ui_print " Help and Donate: t.me/chinacloudgroup"
-ui_print " Website: tryigit.dev/snap"
+ui_print " Version: $MODVER"
+ui_print " Website: tryigit.dev/snapdragon"
+ui_print " Help and Donate: t.me/cleverestech"
 ui_print " "
 ui_print " - Rom Check..."
-DALVL=`getprop ro.build.host`
-if [ $DALVL != "xiaomi.eu" ]; then
-echo " - Success Variant 1 🌍"
+
+# Rom Check
+if [ "$(getprop ro.build.host)" != "xiaomi.eu" ]; then
+    echo " - Success Variant 1 🌍"
 else
-echo " "
-echo "❗Very bad rom (risky)"
-echo " "
+    echo " "
+    echo "❗Very bad ROM (risky)"
+    echo " "
 fi
-DALVK=`getprop pm.dexopt.first-use`
-if [ $DALVK != "false" ];
-then
-echo " - Success Variant 2 🌍"
+
+# First Use Check
+if [ "$(getprop pm.dexopt.first-use)" != "false" ]; then
+    echo " - Success Variant 2 🌍"
 else
-echo " "
-echo "! bad rom (no support)"
-echo " "
+    echo " "
+    echo "! Bad ROM"
+    echo " "
 fi
-echo " "
+
 ui_print " - Android Version Check..."
-[ $(getprop ro.system.build.version.sdk) -lt 31 ] && echo "! Unsupported android version detected, please upgrade." && abort
-echo " - Success 🌍"
+if [ $(getprop ro.system.build.version.sdk) -lt 31 ]; then
+    echo "! Unsupported Android version detected, please upgrade."
+    abort
+else
+    echo " - Success 🌍"
+fi
 echo " "
 
-ui_print " - Load wait..."
+# Pause before setting permissions
 sleep 1
 
-# If soc is SM8050 or SM8250, set permissions on firmware file
-if [[ "$soc" == "SM8250-AC" || "$soc" == "SM8250" || "$soc" == "SM8250-AB" ]]; then
-  chmod 644 /system/vendor/firmware/a650_sqe.fw
-fi
-# If soc is not SM8050 or SM8250, force remove firmware file
-if [[ "$soc" != "SM8250-AC" && "$soc" != "SM8250" && "$soc" != "SM8250-AB" ]]; then
-  rm -f $MODPATH/system/vendor/firmware/a650_sqe.fw
-  rm -f $MODPATH/system/vendor/firmware/
-fi
 
-# add path
-set_perm $MODPATH/system/vendor/lib64/hw/libbacktrace.so 0 0 0644
+# Apply permissions
 set_perm_recursive $MODPATH/system/vendor 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/etc/sphal_libraries.txt 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/lib* 0 0 0644 u:object_r:system_lib_file:s0
 set_perm_recursive $MODPATH  0  0  0755  0644
-set_perm_recursive $MODPATH/system/vendor/firmware 0 0 0755 0644 u:object_r:vendor_firmware_file:s0
-set_perm_recursive $MODPATH/system/vendor/etc 0 0 0755 0644 u:object_r:vendor_configs_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib/ 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib/libEGL_adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib/libGLESv2_adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib/libadreno_app_profiles.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib/libq3dtools_adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib/libllvm-qgl.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+set_perm_recursive $MODPATH/system/vendor/lib/libllvm-qgl.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib/libllvm-glnext.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib/libllvm-qcom.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+set_perm_recursive $MODPATH/system/vendor/lib/libadreno_utils.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+set_perm_recursive $MODPATH/system/vendor/lib64/libadreno_utils.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib/hw/vulkan.adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib/egl/ 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib64/ 0 0 0755 0644 u:object_r:same_process_hal_file:s0
@@ -76,6 +74,8 @@ set_perm_recursive $MODPATH/system/vendor/lib64/libllvm-qgl.so 0 0 0755 0644 u:o
 set_perm_recursive $MODPATH/system/vendor/lib64/libllvm-glnext.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib64/libllvm-qcom.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib64/egl/ 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+set_perm_recursive $MODPATH/system/lib/egl/libEGL_adreno.so 0 0 0755 0644 u:object_r:system_lib_file:s0
+set_perm_recursive $MODPATH/system/lib64/egl/libEGL_adreno.so 0 0 0755 0644 u:object_r:system_lib_file:s0
 set_perm_recursive $MODPATH/system/lib/egl/libVkLayer_ADRENO_qprofiler.so 0 0 0755 0644 u:object_r:system_lib_file:s0
 set_perm_recursive $MODPATH/system/lib64/egl/libVkLayer_ADRENO_qprofiler.so 0 0 0755 0644 u:object_r:system_lib_file:s0
 set_perm_recursive $MODPATH/system/lib64/libEGL.so 0 0 0755 0644 u:object_r:system_lib_file:s0
@@ -91,8 +91,10 @@ set_perm_recursive $MODPATH/system/lib/libvulkan.so 0 0 0755 0644 u:object_r:sys
 set_perm_recursive $MODPATH/system/vendor/lib64/libdmabufheap.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib/libdmabufheap.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib64/libCB.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/notgsl.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+set_perm_recursive $MODPATH/system/vendor/lib64/libgsl.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 set_perm_recursive $MODPATH/system/vendor/lib64/libadreno_utils.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+
+# Set specific permissions
 chmod 644 /system/vendor/firmware/a650_sqe.fw
 sleep 1
 
@@ -101,8 +103,9 @@ ui_print " "
 ui_print " - Final step for GPU Cache Cleaner by tryigitx"
 ui_print " - Please wait..."
 
-# chace cleaner
-check_file_exists() {
+# GPU Cache Cleaner @tryigitx
+gpu_cache_cleaner() {
+    find "$1" -type f -name '*shader*' -exec rm -f {} \;
     if [ -e "$1" ]; then
         echo "Folder $1 still exists ❗"
     else
@@ -110,14 +113,9 @@ check_file_exists() {
     fi
 }
 
-find /data -type f -name '*shader*' -exec rm -f {} \;
-check_file_exists /data/*shader*
-
-find /data/user_de -type f -name '*shader_cache*/code_cache' -exec rm -f {} \;
-check_file_exists /data/user_de/*shader_cache*/code_cache
+gpu_cache_cleaner "/data"
+gpu_cache_cleaner "/data/user_de/*shader_cache*/code_cache"
 
 ui_print " "
 ui_print " - Please reboot 🎉"
-ui_print " "
-ui_print " "
 ui_print " "
