@@ -57,7 +57,3 @@ This License Agreement governs the use of the AdrenoGpuDriver project and its as
 **SECTION 5: ACCEPTANCE OF TERMS**
 
 By downloading, accessing, installing, or using any part of the Software (Public Content or Proprietary Content), you signify your acceptance of the terms of this License Agreement. If you do not agree to these terms, do not download, access, install, or use the Software.
-
----
-
-This license attempts to clearly separate the open-source parts from the proprietary parts and includes the disclaimers you requested regarding Qualcomm. Remember to place this text in a file named `LICENSE` or `LICENSE.md` in the root of your `tryigit/AdrenoGpuDriver` repository.
