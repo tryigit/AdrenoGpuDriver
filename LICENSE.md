@@ -2,7 +2,7 @@
 
 Project: AdrenoGpuDriver
 Author: Yiğit
-Copyright (c) 2024-2025 Yiğit. All Rights Reserved for Proprietary Content.
+Copyright (c) Yiğit. All Rights Reserved for Proprietary Content.
 
 This License Agreement governs the use of the AdrenoGpuDriver project and its associated files (collectively, "the Software"). The Software is composed of different components, each subject to specific licensing terms as outlined below.
 
