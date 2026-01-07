@@ -15,88 +15,68 @@ ui_print " - Rom Check..."
 
 # Rom Check
 if [ "$(getprop ro.build.host)" != "xiaomi.eu" ]; then
-    echo " - Success Variant 1 🌍"
+    ui_print " - Success Variant 1 🌍"
 else
-    echo " "
-    echo "❗Very bad ROM (risky)"
-    echo " "
+    ui_print " "
+    ui_print "❗Very bad ROM (risky)"
+    ui_print " "
 fi
 
 # First Use Check
 if [ "$(getprop pm.dexopt.first-use)" != "false" ]; then
-    echo " - Success Variant 2 🌍"
+    ui_print " - Success Variant 2 🌍"
 else
-    echo " "
-    echo "! Bad ROM"
-    echo " "
+    ui_print " "
+    ui_print "! Bad ROM"
+    ui_print " "
 fi
 
 ui_print " - Android Version Check..."
 if [ $(getprop ro.system.build.version.sdk) -lt 31 ]; then
-    echo "! Unsupported Android version detected, please upgrade."
+    ui_print "! Unsupported Android version detected, please upgrade."
     abort
 else
-    echo " - Success 🌍"
+    ui_print " - Success 🌍"
 fi
-echo " "
+ui_print " "
 
 # Pause before setting permissions
 sleep 1
 
+ui_print " - Setting permissions..."
 
-# Apply permissions
-set_perm_recursive $MODPATH/system/vendor 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/etc/sphal_libraries.txt 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/lib* 0 0 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH  0  0  0755  0644
-set_perm_recursive $MODPATH/system/vendor/lib/ 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/libEGL_adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/libGLESv2_adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/libadreno_app_profiles.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/libq3dtools_adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/libllvm-qgl.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/libllvm-qgl.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/libllvm-glnext.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/libllvm-qcom.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/libadreno_utils.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libadreno_utils.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/hw/vulkan.adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/egl/ 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/ 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/libVkLayer_ADRENO_qprofiler.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libVkLayer_ADRENO_qprofiler.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libEGL_adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libGLESv2_adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libadreno_app_profiles.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libq3dtools_adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/hw/vulkan.adreno.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libllvm-qgl.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libllvm-glnext.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libllvm-qcom.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/egl/ 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/lib/egl/libEGL_adreno.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib64/egl/libEGL_adreno.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib/egl/libVkLayer_ADRENO_qprofiler.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib64/egl/libVkLayer_ADRENO_qprofiler.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib64/libEGL.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib64/libGLESv1_CM.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib64/libGLESv2.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib64/libGLESv3.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib64/libvulkan.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib/libEGL.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib/libGLESv1_CM.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib/libGLESv2.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib/libGLESv3.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/lib/libvulkan.so 0 0 0755 0644 u:object_r:system_lib_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libdmabufheap.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib/libdmabufheap.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libCB.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libgsl.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
-set_perm_recursive $MODPATH/system/vendor/lib64/libadreno_utils.so 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+# Apply base module permissions
+set_perm_recursive $MODPATH 0 0 0755 0644
 
-# Set specific permissions
-chmod 644 /system/vendor/firmware/a650_sqe.fw
-sleep 1
+# Apply permissions for system lib directories (recursive)
+# SELinux context: u:object_r:system_lib_file:s0 for system libraries
+if [ -d "$MODPATH/system/lib" ]; then
+    set_perm_recursive $MODPATH/system/lib 0 0 0755 0644 u:object_r:system_lib_file:s0
+fi
+
+if [ -d "$MODPATH/system/lib64" ]; then
+    set_perm_recursive $MODPATH/system/lib64 0 0 0755 0644 u:object_r:system_lib_file:s0
+fi
+
+# Apply permissions for vendor firmware (specific context first)
+if [ -d "$MODPATH/system/vendor/firmware" ]; then
+    set_perm_recursive $MODPATH/system/vendor/firmware 0 0 0755 0644 u:object_r:vendor_firmware_file:s0
+fi
+
+# Apply permissions for vendor etc files (specific context)
+if [ -d "$MODPATH/system/vendor/etc" ]; then
+    set_perm_recursive $MODPATH/system/vendor/etc 0 0 0755 0644 u:object_r:vendor_configs_file:s0
+fi
+
+# Apply permissions for vendor lib directories (GPU libraries)
+# SELinux context: u:object_r:same_process_hal_file:s0 for vendor GPU libraries
+if [ -d "$MODPATH/system/vendor/lib" ]; then
+    set_perm_recursive $MODPATH/system/vendor/lib 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+fi
+
+if [ -d "$MODPATH/system/vendor/lib64" ]; then
+    set_perm_recursive $MODPATH/system/vendor/lib64 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+fi
 
 ui_print " - Success 🌍"
 ui_print " "
@@ -105,15 +85,18 @@ ui_print " - Please wait..."
 
 # GPU Cache Cleaner @tryigitx
 gpu_cache_cleaner() {
-    find "$1" -type f -name '*shader*' -exec rm -f {} \;
-    if [ -e "$1" ]; then
-    else
-        echo " - $1 cleared 🧭"
+    local target_path="$1"
+    if [ -d "$target_path" ]; then
+        # Remove shader cache directories and GPU cache files
+        find "$target_path" \( -type d -name '*shader_cache*' -prune -exec rm -rf {} \; \) -o \
+            \( -type f \( -name '*shader*' -o -name '*gpu_cache*' \) -exec rm -f {} \; \) 2>/dev/null
+        ui_print " - $target_path cleared 🧭"
     fi
 }
 
-gpu_cache_cleaner "/data"
-gpu_cache_cleaner "/data/user_de/*shader_cache*/code_cache"
+gpu_cache_cleaner "/data/data"
+gpu_cache_cleaner "/data/user_de"
+gpu_cache_cleaner "/data/user"
 
 ui_print " "
 ui_print " - Please reboot 🎉"
