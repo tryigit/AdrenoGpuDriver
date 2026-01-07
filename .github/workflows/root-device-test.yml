@@ -1,0 +1,163 @@
+# Root Device Test Workflow for Adreno GPU Driver Module
+# This workflow validates the Magisk module structure and prepares test artifacts
+# test.so files will be added later for actual driver testing
+
+name: Root Device Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_device:
+        description: 'Target device model (e.g., SM-S918B)'
+        required: false
+        default: 'generic'
+      android_version:
+        description: 'Android version (e.g., 14)'
+        required: false
+        default: '14'
+  push:
+    paths:
+      - 'Magisk Template/**'
+      - '.github/workflows/root-device-test.yml'
+  pull_request:
+    paths:
+      - 'Magisk Template/**'
+
+# Minimal permissions required for this workflow
+permissions:
+  contents: read
+
+jobs:
+  validate-module:
+    name: Validate Magisk Module Structure
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate module.prop
+        run: |
+          echo "Validating module.prop..."
+          if [ ! -f "Magisk Template/module.prop" ]; then
+            echo "❌ module.prop not found"
+            exit 1
+          fi
+          
+          # Check required fields
+          required_fields=("id" "name" "version" "versionCode" "author" "description")
+          for field in "${required_fields[@]}"; do
+            if ! grep -q "^${field}=" "Magisk Template/module.prop"; then
+              echo "❌ Missing required field: $field"
+              exit 1
+            fi
+          done
+          echo "✅ module.prop is valid"
+
+      - name: Validate customize.sh syntax
+        run: |
+          echo "Validating customize.sh syntax..."
+          if [ ! -f "Magisk Template/customize.sh" ]; then
+            echo "❌ customize.sh not found"
+            exit 1
+          fi
+          bash -n "Magisk Template/customize.sh"
+          echo "✅ customize.sh syntax is valid"
+
+      - name: Validate update-binary syntax
+        run: |
+          echo "Validating update-binary syntax..."
+          if [ ! -f "Magisk Template/META-INF/com/google/android/update-binary" ]; then
+            echo "❌ update-binary not found"
+            exit 1
+          fi
+          bash -n "Magisk Template/META-INF/com/google/android/update-binary"
+          echo "✅ update-binary syntax is valid"
+
+      - name: Check directory structure
+        run: |
+          echo "Checking directory structure..."
+          
+          # Required directories
+          dirs=(
+            "Magisk Template/META-INF/com/google/android"
+            "Magisk Template/system/vendor"
+          )
+          
+          for dir in "${dirs[@]}"; do
+            if [ ! -d "$dir" ]; then
+              echo "❌ Missing directory: $dir"
+              exit 1
+            fi
+          done
+          echo "✅ Directory structure is valid"
+
+      - name: Display module info
+        run: |
+          echo "=== Module Information ==="
+          cat "Magisk Template/module.prop"
+          echo ""
+          echo "=== System Properties ==="
+          if [ -f "Magisk Template/system.prop" ]; then
+            cat "Magisk Template/system.prop"
+          else
+            echo "(No system.prop file)"
+          fi
+
+  build-test-module:
+    name: Build Test Module
+    runs-on: ubuntu-latest
+    needs: validate-module
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create test module zip
+        run: |
+          echo "Creating test module..."
+          cd "Magisk Template"
+          
+          # Create module zip (excluding placeholder files)
+          zip -r ../adreno-gpu-driver-test.zip . \
+            -x "*/readme and delete" \
+            -x "*.md"
+          
+          cd ..
+          echo "✅ Test module created"
+          ls -la adreno-gpu-driver-test.zip
+
+      - name: Upload test module artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: adreno-gpu-driver-test-module
+          path: adreno-gpu-driver-test.zip
+          retention-days: 7
+
+  # Placeholder for future root device testing
+  # test.so files will be added later for actual driver validation
+  root-device-test:
+    name: Root Device Test (Placeholder)
+    runs-on: ubuntu-latest
+    needs: build-test-module
+    if: github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: Download test module
+        uses: actions/download-artifact@v4
+        with:
+          name: adreno-gpu-driver-test-module
+
+      - name: Test preparation info
+        run: |
+          echo "=== Root Device Test Preparation ==="
+          echo "Target Device: ${{ github.event.inputs.test_device }}"
+          echo "Android Version: ${{ github.event.inputs.android_version }}"
+          echo ""
+          echo "Test module is ready for deployment."
+          echo "test.so files will be added in future updates for:"
+          echo "  - OpenGL driver validation"
+          echo "  - Vulkan driver validation"
+          echo "  - OpenCL driver validation"
+          echo ""
+          ls -la adreno-gpu-driver-test.zip
