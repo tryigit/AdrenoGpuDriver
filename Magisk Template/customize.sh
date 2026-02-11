@@ -40,8 +40,6 @@ else
 fi
 ui_print " "
 
-# Pause before setting permissions
-sleep 1
 
 ui_print " - Setting permissions..."
 
