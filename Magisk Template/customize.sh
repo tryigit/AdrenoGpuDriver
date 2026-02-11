@@ -85,18 +85,20 @@ ui_print " - Please wait..."
 
 # GPU Cache Cleaner @tryigitx
 gpu_cache_cleaner() {
-    local target_path="$1"
-    if [ -d "$target_path" ]; then
+    if [ $# -gt 0 ]; then
         # Remove shader cache directories and GPU cache files
-        find "$target_path" \( -type d -name '*shader_cache*' -prune -exec rm -rf {} \; \) -o \
-            \( -type f \( -name '*shader*' -o -name '*gpu_cache*' \) -exec rm -f {} \; \) 2>/dev/null
-        ui_print " - $target_path cleared 🧭"
+        find "$@" \( -type d -name '*shader_cache*' -prune -exec rm -rf {} \; \) -o \
+            \( -type f \( -name '*shader*' -o -name '*gpu_cache*' \) -exec rm -f {} \; \) 2>/dev/null || true
+
+        for path in "$@"; do
+            if [ -d "$path" ]; then
+                ui_print " - $path cleared 🧭"
+            fi
+        done
     fi
 }
 
-gpu_cache_cleaner "/data/data"
-gpu_cache_cleaner "/data/user_de"
-gpu_cache_cleaner "/data/user"
+gpu_cache_cleaner "/data/data" "/data/user_de" "/data/user"
 
 ui_print " "
 ui_print " - Please reboot 🎉"
