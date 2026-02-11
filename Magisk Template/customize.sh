@@ -2,8 +2,17 @@
 
 # Gather Information
 SOC=$(getprop ro.soc.model)
-MODVER=$(grep_prop version $MODPATH/module.prop)
-MODVERCODE=$(grep_prop versionCode $MODPATH/module.prop)
+
+# Efficiently read version and versionCode from module.prop
+MODVER=""
+MODVERCODE=""
+while IFS='=' read -r key value || [ -n "$key" ]; do
+    case "$key" in
+        version) [ -z "$MODVER" ] && MODVER="$value" ;;
+        versionCode) [ -z "$MODVERCODE" ] && MODVERCODE="$value" ;;
+    esac
+    [ -n "$MODVER" ] && [ -n "$MODVERCODE" ] && break
+done < "$MODPATH/module.prop"
 
 # Display Info
 ui_print " "
