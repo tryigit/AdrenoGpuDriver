@@ -1,6 +1,6 @@
 id=gpu_driver_free
 name=Adreno Gpu Driver
-version=v1.0.3
-versionCode=103
+version=v1.0.4
+versionCode=104
 author=tryigitx
 description=Open-Source Adreno {Version} Driver | Dump By {@urname}
