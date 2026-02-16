@@ -1,0 +1,21 @@
+BotFather Metadata Rebranding
+
+1. Description (What the bot can do - The text seen before clicking Start):
+
+Advanced Android Security Validation Utility.
+
+Designed for developers and researchers to analyze system integrity and validate XML configuration files against standard schemas.
+
+Key Features:
+• XML Syntax & Structure Validation
+• Security Environment Analysis
+• Research Data & Documentation Access
+• Developer Integrity Tools
+
+Use this utility to verify your development environment and ensure compliance with Android security standards.
+
+---
+
+2. About (The short text in the profile):
+
+Legitimate Android Security Research & Validation Utility. Professional tools for analyzing system integrity and validating configuration files.
