@@ -87,6 +87,20 @@ if [ -d "$MODPATH/system/vendor/lib64" ]; then
     set_perm_recursive $MODPATH/system/vendor/lib64 0 0 0755 0644 u:object_r:same_process_hal_file:s0
 fi
 
+# Ensure specific GPU library subdirectories have the correct context (redundant but safe for MagiskHide)
+if [ -d "$MODPATH/system/vendor/lib/egl" ]; then
+    set_perm_recursive $MODPATH/system/vendor/lib/egl 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+fi
+if [ -d "$MODPATH/system/vendor/lib/hw" ]; then
+    set_perm_recursive $MODPATH/system/vendor/lib/hw 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+fi
+if [ -d "$MODPATH/system/vendor/lib64/egl" ]; then
+    set_perm_recursive $MODPATH/system/vendor/lib64/egl 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+fi
+if [ -d "$MODPATH/system/vendor/lib64/hw" ]; then
+    set_perm_recursive $MODPATH/system/vendor/lib64/hw 0 0 0755 0644 u:object_r:same_process_hal_file:s0
+fi
+
 ui_print " - Success 🌍"
 ui_print " "
 ui_print " - Final step for GPU Cache Cleaner by tryigitx"

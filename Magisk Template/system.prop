@@ -8,3 +8,8 @@ ro.zygote.disable_gl_preload=true
 # Disable ANGLE driver loading by clearing the rules
 # This ensures native Adreno drivers are used instead of ANGLE
 debug.angle.rules=""
+
+# Force Adreno driver usage for EGL and Vulkan
+# This ensures the system explicitly looks for adreno drivers (vulkan.adreno.so, etc)
+ro.hardware.vulkan=adreno
+ro.hardware.egl=adreno

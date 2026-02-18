@@ -77,6 +77,6 @@ You will need to learn how to use the **Adreno Profile Tools**. You can also dow
 
 ## Known Issues
 - [x] Kernelsu compatibility
-- [ ] Magiskhide map conflict (improved with better permission structure and properties)
+- [x] Magiskhide map conflict (improved with better permission structure and properties)
 > [!NOTE]
 > The prop code `ro.zygote.disable_gl_preload=true` helps fix the magiskhide EGL issue. Additional compatibility properties have been added to `system.prop`.
