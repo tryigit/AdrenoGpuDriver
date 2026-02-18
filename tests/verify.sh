@@ -58,9 +58,9 @@ echo "Running customize.sh..."
 # So we will create a wrapper or use `sed` to replace the paths with our mock paths for testing.
 
 # Replace paths in customize.sh for testing
-sed -i "s|/data/data|\"$MOCK_DATA/data\"|g" "$MODPATH/customize.sh"
-sed -i "s|/data/user_de|\"$MOCK_DATA/user_de\"|g" "$MODPATH/customize.sh"
-sed -i "s|/data/user|\"$MOCK_DATA/user\"|g" "$MODPATH/customize.sh"
+sed -i -e "s|/data/data|\"$MOCK_DATA/data\"|g" \
+       -e "s|/data/user_de|\"$MOCK_DATA/user_de\"|g" \
+       -e "s|/data/user|\"$MOCK_DATA/user\"|g" "$MODPATH/customize.sh"
 
 # Source the script
 . "$MODPATH/customize.sh"
