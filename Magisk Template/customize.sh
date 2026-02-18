@@ -55,7 +55,18 @@ ui_print " "
 ui_print " - Setting permissions..."
 
 # Apply base module permissions
-set_perm_recursive $MODPATH 0 0 0755 0644
+find "$MODPATH" \
+    \( \
+       -path "$MODPATH/system/lib" -o \
+       -path "$MODPATH/system/lib64" -o \
+       -path "$MODPATH/system/vendor/firmware" -o \
+       -path "$MODPATH/system/vendor/etc" -o \
+       -path "$MODPATH/system/vendor/lib" -o \
+       -path "$MODPATH/system/vendor/lib64" \
+    \) -prune -o \
+    -type d -exec chown 0:0 {} + -exec chmod 0755 {} + -exec chcon u:object_r:system_file:s0 {} + -o \
+    -type f -exec chown 0:0 {} + -exec chmod 0644 {} + -exec chcon u:object_r:system_file:s0 {} + \
+    2>/dev/null
 
 # Apply permissions for system lib directories (recursive)
 # SELinux context: u:object_r:system_lib_file:s0 for system libraries
