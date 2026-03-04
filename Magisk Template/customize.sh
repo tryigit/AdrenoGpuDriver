@@ -122,11 +122,9 @@ gpu_cache_cleaner() {
     if [ $# -gt 0 ]; then
         # Remove shader cache directories and GPU cache files
         find "$@" \
-            -type d \( -name '*shader_cache*' -o -name '*gpu_cache*' \) -prune -exec rm -rf {} + \
-            2>/dev/null || true
-
-        find "$@" \
-            -type f \( -name '*shader*' -o -name '*gpu_cache*' \) -delete \
+            \( \( -type d \( -name '*shader_cache*' -o -name '*gpu_cache*' \) -prune \) -o \
+            \( -type f \( -name '*shader*' -o -name '*gpu_cache*' \) \) \) \
+            -exec rm -rf {} + \
             2>/dev/null || true
 
         for path in "$@"; do
