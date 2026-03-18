@@ -121,10 +121,13 @@ ui_print " - Please wait..."
 gpu_cache_cleaner() {
     if [ $# -gt 0 ]; then
         # Remove shader cache directories and GPU cache files
+        # First pass: Directories with prune
         find "$@" \
-            \( \( -type d \( -name '*shader_cache*' -o -name '*gpu_cache*' \) -prune \) -o \
-            \( -type f \( -name '*shader*' -o -name '*gpu_cache*' \) \) \) \
-            -exec rm -rf {} + \
+            -type d \( -name '*shader_cache*' -o -name '*gpu_cache*' \) -prune -exec rm -rf {} + \
+            2>/dev/null || true
+        # Second pass: Files with delete
+        find "$@" \
+            -type f \( -name '*shader*' -o -name '*gpu_cache*' \) -exec rm -f {} + \
             2>/dev/null || true
 
         for path in "$@"; do
