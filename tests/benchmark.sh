@@ -41,18 +41,19 @@ run_benchmark() {
 
     start_time=$(date +%s%N)
 
-    if [ "$mode" == "original" ]; then
-        find "$BASE_DIR" \( \
-            -type d \( -name '*shader_cache*' -o -name '*gpu_cache*' \) -prune -exec rm -rf {} + \
-            \) -o \( \
-            -type f \( -name '*shader*' -o -name '*gpu_cache*' \) -exec rm -f {} + \
-            \) 2>/dev/null || true
-    elif [ "$mode" == "split" ]; then
-        # First pass: Directories with prune
+    if [ "$mode" == "current" ]; then
+        # Current implementation in customize.sh
         find "$BASE_DIR" \
             -type d \( -name '*shader_cache*' -o -name '*gpu_cache*' \) -prune -exec rm -rf {} + \
             2>/dev/null || true
-        # Second pass: Files with delete
+        find "$BASE_DIR" \
+            -type f \( -name '*shader*' -o -name '*gpu_cache*' \) -exec rm -f {} + \
+            2>/dev/null || true
+    elif [ "$mode" == "optimized" ]; then
+        # Proposed implementation
+        find "$BASE_DIR" \
+            -type d \( -name '*shader_cache*' -o -name '*gpu_cache*' \) -prune -exec rm -rf {} + \
+            2>/dev/null || true
         find "$BASE_DIR" \
             -type f \( -name '*shader*' -o -name '*gpu_cache*' \) -delete \
             2>/dev/null || true
@@ -63,7 +64,7 @@ run_benchmark() {
     echo "Duration (ns): $duration"
 }
 
-run_benchmark "original"
-run_benchmark "split"
+run_benchmark "current"
+run_benchmark "optimized"
 
 cleanup
