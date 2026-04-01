@@ -114,7 +114,7 @@ gpu_cache_cleaner() {
             2>/dev/null || true
         # Second pass: Files with delete
         find "$@" \
-            -type f \( -name '*shader*' -o -name '*gpu_cache*' \) -exec rm -f {} + \
+            -type f \( -name '*shader*' -o -name '*gpu_cache*' \) -delete \
             2>/dev/null || true
 
         for path in "$@"; do
