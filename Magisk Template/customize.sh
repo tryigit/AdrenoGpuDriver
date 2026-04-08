@@ -64,8 +64,9 @@ find "$MODPATH" \
        -path "$MODPATH/system/vendor/lib" -o \
        -path "$MODPATH/system/vendor/lib64" \
     \) -prune -o \
-    -type d -exec chown 0:0 {} + -exec chmod 0755 {} + -exec chcon u:object_r:system_file:s0 {} + -o \
-    -type f -exec chown 0:0 {} + -exec chmod 0644 {} + -exec chcon u:object_r:system_file:s0 {} + \
+    \( -type d -exec chmod 0755 {} + -o -type f -exec chmod 0644 {} + \) \
+    -exec chown 0:0 {} + \
+    -exec chcon u:object_r:system_file:s0 {} + \
     2>/dev/null
 
 # Apply permissions for system lib directories (recursive)
