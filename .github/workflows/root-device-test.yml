@@ -45,13 +45,23 @@ jobs:
           fi
           
           # Check required fields
-          required_fields=("id" "name" "version" "versionCode" "author" "description")
-          for field in "${required_fields[@]}"; do
-            if ! grep -q "^${field}=" "Magisk Template/module.prop"; then
-              echo "❌ Missing required field: $field"
-              exit 1
-            fi
-          done
+          awk -F= '
+            BEGIN {
+              n = split("id name version versionCode author description", fields, " ")
+              for (i=1; i<=n; i++) required[fields[i]] = 1
+            }
+            { if ($1 in required) delete required[$1] }
+            END {
+              status = 0
+              for (i=1; i<=n; i++) {
+                if (fields[i] in required) {
+                  printf "❌ Missing required field: %s\n", fields[i]
+                  status = 1
+                }
+              }
+              exit status
+            }
+          ' "Magisk Template/module.prop"
           echo "✅ module.prop is valid"
 
       - name: Validate customize.sh syntax
