@@ -16,8 +16,9 @@ REQUIRED_PROPS=(
 )
 
 RET=0
+PROP_CONTENTS=$(<"$PROP_FILE")
 for prop in "${REQUIRED_PROPS[@]}"; do
-    if grep -Fq "$prop" "$PROP_FILE"; then
+    if [[ "$PROP_CONTENTS" == *"$prop"* ]]; then
         echo "PASS: Found $prop"
     else
         echo "FAIL: Missing $prop"
