@@ -15,14 +15,12 @@ mkdir -p "$MODPATH/system/lib"
 mkdir -p "$MODPATH/system/app"
 mkdir -p "$MODPATH/system/vendor/firmware"
 
-for i in $(seq 1 2000); do
-    touch "$MODPATH/system/lib/lib$i.so"
-    touch "$MODPATH/system/app/app$i.apk"
-    touch "$MODPATH/system/vendor/firmware/fw$i.bin"
-done
-for i in $(seq 1 100); do
-    touch "$MODPATH/file$i"
-done
+touch "$MODPATH/system/lib/lib"{1..2000}".so"
+touch "$MODPATH/system/app/app"{1..2000}".apk"
+touch "$MODPATH/system/vendor/firmware/fw"{1..2000}".bin"
+
+touch "$MODPATH/file"{1..100}
+
 
 # Mock functions
 ui_print() { :; }
