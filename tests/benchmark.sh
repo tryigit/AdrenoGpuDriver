@@ -6,24 +6,21 @@ BASE_DIR="benchmark_data"
 create_files() {
     local count=$1
     echo "Creating mixed content..."
+    local start_time=$(date +%s%N 2>/dev/null || date +%s)
     # 5000 loose files
-    for i in $(seq 1 5000); do
-        touch "$BASE_DIR/loose_shader_$i.bin"
-    done
+    touch "$BASE_DIR"/loose_shader_{1..5000}.bin
 
     # 100 directories to be deleted, each with 50 files
-    for i in $(seq 1 100); do
-        mkdir -p "$BASE_DIR/dir_$i/shader_cache"
-        for j in $(seq 1 50); do
-            touch "$BASE_DIR/dir_$i/shader_cache/file_$j"
-        done
+    mkdir -p "$BASE_DIR"/dir_{1..100}/{shader_cache,normal}
+    touch "$BASE_DIR"/dir_{1..100}/shader_cache/file_{1..50}
+    touch "$BASE_DIR"/dir_{1..100}/normal/file_{1..50}
+    local end_time=$(date +%s%N 2>/dev/null || date +%s)
 
-        # Also some non-deleted dirs with files
-        mkdir -p "$BASE_DIR/dir_$i/normal"
-        for j in $(seq 1 50); do
-            touch "$BASE_DIR/dir_$i/normal/file_$j"
-        done
-    done
+    if [[ "$start_time" == *%N* ]]; then
+        echo "Creation Duration: $((end_time - start_time)) seconds (nanoseconds not supported)"
+    else
+        echo "Creation Duration (ns): $((end_time - start_time))"
+    fi
 }
 
 cleanup() {
@@ -39,7 +36,7 @@ run_benchmark() {
     mkdir -p "$BASE_DIR"
     create_files
 
-    start_time=$(date +%s%N)
+    start_time=$(date +%s%N 2>/dev/null || date +%s)
 
     if [ "$mode" == "current" ]; then
         # Current implementation in customize.sh
@@ -59,9 +56,13 @@ run_benchmark() {
             2>/dev/null || true
     fi
 
-    end_time=$(date +%s%N)
+    end_time=$(date +%s%N 2>/dev/null || date +%s)
     duration=$((end_time - start_time))
-    echo "Duration (ns): $duration"
+    if [[ "$start_time" == *%N* ]]; then
+        echo "Duration: $duration seconds"
+    else
+        echo "Duration (ns): $duration"
+    fi
 }
 
 run_benchmark "current"

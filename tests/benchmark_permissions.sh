@@ -11,18 +11,20 @@ mkdir -p "$MODPATH"
 # 1000 files in system/app (normal)
 # 100 files in root
 echo "Generating test files..."
-mkdir -p "$MODPATH/system/lib"
-mkdir -p "$MODPATH/system/app"
-mkdir -p "$MODPATH/system/vendor/firmware"
+start_time=$(date +%s%N 2>/dev/null || date +%s)
+mkdir -p "$MODPATH"/system/{lib,app,vendor/firmware}
 
-for i in $(seq 1 2000); do
-    touch "$MODPATH/system/lib/lib$i.so"
-    touch "$MODPATH/system/app/app$i.apk"
-    touch "$MODPATH/system/vendor/firmware/fw$i.bin"
-done
-for i in $(seq 1 100); do
-    touch "$MODPATH/file$i"
-done
+touch "$MODPATH"/system/lib/lib{1..2000}.so
+touch "$MODPATH"/system/app/app{1..2000}.apk
+touch "$MODPATH"/system/vendor/firmware/fw{1..2000}.bin
+touch "$MODPATH"/file{1..100}
+end_time=$(date +%s%N 2>/dev/null || date +%s)
+
+if [[ "$start_time" == *%N* ]]; then
+    echo "Generation Duration: $((end_time - start_time)) seconds"
+else
+    echo "Generation Duration (ns): $((end_time - start_time))"
+fi
 
 # Mock functions
 ui_print() { :; }
@@ -44,7 +46,7 @@ set_perm_recursive() {
 # The relevant part is from line 58 onwards.
 
 measure_original() {
-    local start_time=$(date +%s%N)
+    local start_time=$(date +%s%N 2>/dev/null || date +%s)
 
     # Original logic
     set_perm_recursive $MODPATH 0 0 0755 0644
@@ -68,12 +70,17 @@ measure_original() {
         set_perm_recursive $MODPATH/system/vendor/lib64 0 0 0755 0644 u:object_r:same_process_hal_file:s0
     fi
 
-    local end_time=$(date +%s%N)
-    echo "$(( (end_time - start_time) / 1000000 ))"
+    local end_time=$(date +%s%N 2>/dev/null || date +%s)
+    local duration=$((end_time - start_time))
+    if [[ "$start_time" == *%N* ]]; then
+        echo "$duration" # actually seconds but the script expects ms
+    else
+        echo "$(( duration / 1000000 ))"
+    fi
 }
 
 measure_optimized() {
-    local start_time=$(date +%s%N)
+    local start_time=$(date +%s%N 2>/dev/null || date +%s)
 
     # Optimized logic (Proposed)
     # 1. Skip the global set_perm_recursive
@@ -114,8 +121,13 @@ measure_optimized() {
         set_perm_recursive $MODPATH/system/vendor/lib64 0 0 0755 0644 u:object_r:same_process_hal_file:s0
     fi
 
-    local end_time=$(date +%s%N)
-    echo "$(( (end_time - start_time) / 1000000 ))"
+    local end_time=$(date +%s%N 2>/dev/null || date +%s)
+    local duration=$((end_time - start_time))
+    if [[ "$start_time" == *%N* ]]; then
+        echo "$duration"
+    else
+        echo "$(( duration / 1000000 ))"
+    fi
 }
 
 echo "Running benchmark..."
