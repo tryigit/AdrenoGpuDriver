@@ -7,23 +7,15 @@ create_files() {
     local count=$1
     echo "Creating mixed content..."
     # 5000 loose files
-    for i in $(seq 1 5000); do
-        touch "$BASE_DIR/loose_shader_$i.bin"
-    done
+    bash -c "touch \"$BASE_DIR\"/loose_shader_{1..5000}.bin"
 
     # 100 directories to be deleted, each with 50 files
-    for i in $(seq 1 100); do
-        mkdir -p "$BASE_DIR/dir_$i/shader_cache"
-        for j in $(seq 1 50); do
-            touch "$BASE_DIR/dir_$i/shader_cache/file_$j"
-        done
+    bash -c "mkdir -p \"$BASE_DIR\"/dir_{1..100}/shader_cache"
+    bash -c "touch \"$BASE_DIR\"/dir_{1..100}/shader_cache/file_{1..50}"
 
-        # Also some non-deleted dirs with files
-        mkdir -p "$BASE_DIR/dir_$i/normal"
-        for j in $(seq 1 50); do
-            touch "$BASE_DIR/dir_$i/normal/file_$j"
-        done
-    done
+    # Also some non-deleted dirs with files
+    bash -c "mkdir -p \"$BASE_DIR\"/dir_{1..100}/normal"
+    bash -c "touch \"$BASE_DIR\"/dir_{1..100}/normal/file_{1..50}"
 }
 
 cleanup() {
